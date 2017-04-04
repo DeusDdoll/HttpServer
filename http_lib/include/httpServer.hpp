@@ -4,7 +4,7 @@
 #include "command.hpp"
 #include "socket.hpp"
 
-namespace Server
+namespace Network
 {
 
 class HttpServer

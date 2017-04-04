@@ -1,6 +1,6 @@
 #include "request.hpp"
 
-namespace network
+namespace Network
 {
 
 HttpRequest parseRequest(std::string&& request)

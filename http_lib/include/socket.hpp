@@ -8,7 +8,7 @@
 
 #define MAX_SIZE 1024
 
-namespace Server
+namespace Network
 {
 
 class ISocket

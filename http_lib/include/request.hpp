@@ -4,7 +4,7 @@
 #include <string>
 #include <regex>
 
-namespace network
+namespace Network
 {
 
 enum class Type
