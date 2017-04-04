@@ -1,5 +1,5 @@
-#include "command.hpp"
-#include "request.hpp"
+#include "http/command.hpp"
+#include "http/request.hpp"
 
 namespace utils
 {
