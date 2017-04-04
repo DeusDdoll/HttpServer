@@ -1,0 +1,8 @@
+build/*
+*.swp
+*.o
+*.out
+*.a
+*.lib
+*.so
+
