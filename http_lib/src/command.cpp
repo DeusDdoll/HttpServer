@@ -1,14 +1,16 @@
+#include <utility>
+
 #include "http/command.hpp"
 #include "http/request.hpp"
 
 namespace utils
 {
 
-HttpCommand::HttpCommand(TcpSocket&& socket, std::string&& request)
+HttpCommand::HttpCommand(Network::TcpSocket&& socket, std::string&& request)
     : m_socket(std::move(socket))
     , m_request(std::move(request)) {}
 
-void HttpCommand::exec() override
+void HttpCommand::exec()
 {
     sendResponce();
 }
@@ -17,25 +19,28 @@ void HttpCommand::sendResponce()
 {
     try
     {
-        while(!shouldStop())
+        //TODO: implement exit for this loop
+        while(true)
         {
-            auto request(parseRequest(std::move(m_request)));
+            //TODO: implement parser for HTTP command
+            auto request(Network::parseRequest(std::move(m_request)));
 
             switch(request.m_type)
             {
-                case network::Type::GET:
+                case Network::Type::GET:
                     //TODO: implement befawior for GET request
                     break;
-                case network::Type::POST:
+                case Network::Type::POST:
                     //TODO: implement befawior for POST request
                     break;
-                case network::Type::ERROR:
+                case Network::Type::ERROR:
                     break;
                 default:
                     break;
             }
 
-            m_request = m_socket->read();
+            m_request = m_socket.recv();
+
         }
     }
     catch (const std::exception& err)

@@ -25,7 +25,7 @@ struct HttpRequest
         : m_type(type)
         , m_body(body) {}
 
-    HttpRequest(const HttpRequest&) = default
+    HttpRequest(const HttpRequest&) = default;
 
     Type m_type;
     std::string m_body;

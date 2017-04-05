@@ -1,8 +1,9 @@
 cmake_minimum_required (VERSION 2.8)
 project (HttpServer)
-set (CMAKE_CXX_STANDERD 14)
+set (CMAKE_CXX_STANDARD 11)
 
 set (CMAKE_POSITION_INDEPENDENT_CODE ON)
+set (CMAKE_CXX_FLAGS "-std=c++14")
 
 find_package (GTest REQUIRED)
 

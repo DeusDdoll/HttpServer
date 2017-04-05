@@ -3,6 +3,7 @@
 
 #include <string>
 #include <memory>
+#include <http/socket.hpp>
 
 namespace utils
 {
@@ -14,7 +15,7 @@ class Command
 {
 public:
 
-    virtual auto exec() = 0;
+    virtual void exec() = 0;
     virtual ~Command() = default;
 };
 
@@ -22,13 +23,13 @@ class HttpCommand: public Command
 {
 public:
     HttpCommand() = default;
-    HttpCommand(TcpSocket&& socket, std::string&& request);
-    void exec() override;
+    HttpCommand(Network::TcpSocket&& socket, std::string&& request);
+    void exec();
     void sendResponce();
     ~HttpCommand() = default;
 private:
     std::string m_request;
-    TcpSocket m_socket;
+    Network::TcpSocket m_socket;
 };
 
 }
