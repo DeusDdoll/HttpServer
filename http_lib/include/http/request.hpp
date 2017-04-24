@@ -7,7 +7,7 @@
 namespace Network
 {
 
-enum class Type
+enum class Method
 {
     GET,
     POST,
@@ -17,18 +17,13 @@ enum class Type
 
 struct HttpRequest
 {
-    HttpRequest()
-        : m_type(Type::NOTHING)
-        , m_body() {}
-
-    HttpRequest(const Type& type, const std::string& body)
-        : m_type(type)
-        , m_body(body) {}
-
+    HttpRequest();
+    HttpRequest(const Method& type, const std::string& page, const std::string& body = "");
     HttpRequest(const HttpRequest&) = default;
 
-    Type m_type;
-    std::string m_body;
+    Method m_method;
+    std::string m_page;
+    std::string m_content;
 
     ~HttpRequest() = default;
 };

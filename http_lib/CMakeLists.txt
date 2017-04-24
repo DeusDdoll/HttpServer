@@ -35,3 +35,9 @@ add_executable ("${PROJECT_NAME}_test" ${TESTS})
 target_link_libraries ("${PROJECT_NAME}_test" ${PROJECT_NAME} ${GTEST_BOTH_LIBRARIES})
 
 add_test ("${PROJECT_NAME}_test" "${PROJECT_NAME}_test")
+
+file(GLOB TEST_DATA "${UNIT_TESTS}/test_data/*")
+foreach(FILE ${TEST_DATA})
+    file(COPY ${FILE} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/test_data)
+endforeach(FILE)
+

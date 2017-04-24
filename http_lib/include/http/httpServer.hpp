@@ -1,8 +1,11 @@
 #ifndef HTTP_SERVER_HPP
 #define HTTP_SERVER_HPP
 
-#include "command.hpp"
-#include "socket.hpp"
+#include "http/socket.hpp"
+#include "http/connection.hpp"
+#include <vector>
+#include <mutex>
+#include <thread>
 
 namespace Network
 {
@@ -10,13 +13,14 @@ namespace Network
 class HttpServer
 {
 public:
-    HttpServer(const size_t& requestPort = 8888, const size_t& responcePort = 8889);
+    HttpServer(const std::string& requestPort = "8888");
     void start();
     ~HttpServer() = default;
 
 private:
-    SocketPtr m_requestSock;
-    SocketPtr m_responceSock;
+    TcpSocket m_requestSock;
+    std::vector<std::thread> m_connectionPool;
+    std::mutex m_mutex;
 };
 
 }
