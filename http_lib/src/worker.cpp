@@ -21,9 +21,21 @@ Worker::Worker(Network::HttpRequest&& request)
         std::lock_guard<std::mutex> lock(m_mutex);
 
         std::ifstream fin(request.m_page);
+
+        if (!fin.is_open())
+        {
+            throw std::runtime_error("Failed to find page " + request.m_page);
+        }
+
+        std::string tmp;
         std::string content;
-        fin >> content;
-        m_responce = "HTTP/1.1 200 OK\r\n" + content;
+
+        while(std::getline(fin, tmp))
+        {
+            content += tmp + "\n";
+        }
+
+        m_responce = "HTTP/1.1 200 OK\n\n" + content;
         fin.close();
         break;
     }
@@ -32,8 +44,14 @@ Worker::Worker(Network::HttpRequest&& request)
         std::lock_guard<std::mutex> lock(m_mutex);
 
         std::ofstream fout(request.m_page);
+
+        if (!fout.is_open())
+        {
+            throw std::runtime_error("Failed to open page " + request.m_page);
+        }
+
         fout << request.m_content;
-        m_responce = "HTTP/1.1 200 OK\r\n";
+        m_responce = "HTTP/1.1 200 OK\n\n";
         fout.close();
         break;
     }
@@ -42,7 +60,20 @@ Worker::Worker(Network::HttpRequest&& request)
         std::lock_guard<std::mutex> lock(m_mutex);
 
         std::ifstream fin(request.m_page);
-        fin >> m_responce;
+
+        if (!fin.is_open())
+        {
+            throw std::runtime_error("Failed to find page " + request.m_page);
+        }
+
+        std::string tmp;
+        std::string content;
+        while(std::getline(fin, tmp))
+        {
+            content += tmp + "\n";
+        }
+
+        m_responce = content;
         fin.close();
         break;
     }

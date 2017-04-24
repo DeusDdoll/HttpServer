@@ -3,6 +3,6 @@
 int main()
 {
     HttpServer serv("8888");
-    serv->start();
+    serv.start();
     return 0;
 }
