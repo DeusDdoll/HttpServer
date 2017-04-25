@@ -7,6 +7,7 @@
 
 #include "parser_test.hpp"
 #include "worker_test.hpp"
+#include "socket_test.hpp"
 
 GTEST_API_ int main(int argc, char** argv)
 {

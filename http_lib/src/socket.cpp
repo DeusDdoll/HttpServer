@@ -46,15 +46,15 @@ void TcpSocket::send(const std::string&  buff)
 
 std::string TcpSocket::recv()
 {
-    std::array<char, MAX_SIZE> buff;
-    auto bytes_read = ::recv(m_socket, buff.data(), MAX_SIZE, 0);
+    char buff[MAX_SIZE];
+    auto bytes_read = ::recv(m_socket, buff, sizeof(buff), 0);
     if (bytes_read < 0)
     {
         throw std::runtime_error("Failed to RECV data from socket " + 
                std::to_string(m_socket) + " with errno = " + std::to_string(errno));
     }
 
-    return std::string(buff.data());
+    return std::string(buff);
 }
 
 void TcpSocket::bind()
