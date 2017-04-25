@@ -16,11 +16,11 @@ void HttpServer::start()
             m_requestSock.listen(MAX_PEERS);
             while(true)
             {
-                TcpSocket conn_socket = m_requestSock.accept();
+                auto conn_socket = m_requestSock.accept();
 
                 std::thread t([&]
                         {
-                            Connection conn(std::move(conn_socket));
+                            Connection conn(conn_socket);
                             conn.start();
                         });
                 {

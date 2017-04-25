@@ -62,7 +62,7 @@ TEST(SocketTest, SockReciveExpectedStr)
     client.detach();
 
     std::string request;
-    auto a = sock.accept();
+    auto a = TcpSocket(sock.accept());
     request = a.recv();
 
     EXPECT_EQ(request, "hello\n");
@@ -103,7 +103,7 @@ TEST(SocketTest, SockSendExpectedStr)
     client.detach();
 
     std::string request = "hello\n";
-    auto a = sock.accept();
+    auto a = TcpSocket(sock.accept());
     a.send(request);
 }
 

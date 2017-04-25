@@ -10,7 +10,7 @@ class Connection
 {
 public:
     explicit Connection();
-    explicit Connection(TcpSocket&& socket);
+    explicit Connection(int socket);
 
     void start();
     ~Connection() = default;

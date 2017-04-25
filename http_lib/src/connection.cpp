@@ -8,11 +8,12 @@ namespace Network
 Connection::Connection()
     : m_socket() {}
 
-Connection::Connection(TcpSocket&& socket)
-    : m_socket(std::move(socket)) {}
+Connection::Connection(int socket)
+    : m_socket(socket) {}
 
 void Connection::start()
 {
+    std::cout << "Start connection" << std::endl;
     try
     {
         while (true) //TODO: add flag to socket, if connection closed by peer
@@ -29,7 +30,8 @@ void Connection::start()
     catch (const std::exception& err)
     {
         std::cerr << "Exception during connection with peer\n"
-            << "Connection refused!" << std::endl;
+            << err.what()
+            << "\nConnection refused!" << std::endl;
     }
 }
 

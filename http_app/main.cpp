@@ -2,7 +2,7 @@
 
 int main()
 {
-    HttpServer serv("8888");
+    Network::HttpServer serv("8888");
     serv.start();
     return 0;
 }

@@ -37,7 +37,7 @@ public:
     std::string recv() override;
     void bind ();
     void listen(int backlog);
-    TcpSocket accept();
+    int accept();
 
     ~TcpSocket();
 private:

@@ -74,7 +74,7 @@ void TcpSocket::listen(int backlog)
     }
 }
 
-TcpSocket TcpSocket::accept()
+int TcpSocket::accept()
 {
     struct sockaddr_in peer;
     socklen_t addr_size = sizeof(peer);
@@ -85,7 +85,7 @@ TcpSocket TcpSocket::accept()
     }
     std::cout << "Connection from peer!" << std::endl;
 
-    return TcpSocket(new_fd);
+    return new_fd;
 }
 
 TcpSocket::~TcpSocket()
@@ -95,7 +95,7 @@ TcpSocket::~TcpSocket()
         throw std::runtime_error("Failed to close socket " +
                 std::to_string(m_socket) + " with errno = " + std::to_string(errno));
     }
-    freeaddrinfo(m_servInfo);
+    //freeaddrinfo(m_servInfo);
 }
 
 } //namespace Network

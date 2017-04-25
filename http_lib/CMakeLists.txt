@@ -3,7 +3,7 @@ project (HttpServer)
 set (CMAKE_CXX_STANDARD 11)
 
 set (CMAKE_POSITION_INDEPENDENT_CODE ON)
-set (CMAKE_CXX_FLAGS "-std=c++14")
+set (CMAKE_CXX_FLAGS "-g -std=c++14 -Wall")
 
 find_package (GTest REQUIRED)
 #find_package (GMock REQUIRED)
