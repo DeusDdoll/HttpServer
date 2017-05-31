@@ -1,0 +1,5 @@
+#!/bin/bash
+
+kcov --exclude-pattern=/usr/include,/usr/local/include kcov_dir ./HttpServer_test
+firefox kcov_dir/index.html&
+exit 0

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+gcovr -r ../ --html --html-details -o gcovr_dir.html
+firefox gcovr_dir.html &
+exit 0

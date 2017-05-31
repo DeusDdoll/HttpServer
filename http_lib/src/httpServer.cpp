@@ -13,9 +13,9 @@ void HttpServer::start()
         try
         {
             m_requestSock.bind();
-            m_requestSock.listen(MAX_PEERS);
             while(true)
             {
+                m_requestSock.listen(MAX_PEERS);
                 auto conn_socket = m_requestSock.accept();
 
                 std::thread t([&]

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+lcov --no-external -o lcov.info -c -d ../../http_lib
+genhtml lcov.info -o lcov_out
+firefox lcov_out/index.html &

@@ -3,15 +3,13 @@ project (HttpServer)
 set (CMAKE_CXX_STANDARD 11)
 
 set (CMAKE_POSITION_INDEPENDENT_CODE ON)
-set (CMAKE_CXX_FLAGS "-g -std=c++14 -Wall")
+set (CMAKE_CXX_FLAGS "-g -std=c++14 -O0 -Wall -fprofile-arcs -ftest-coverage")
 
 find_package (GTest REQUIRED)
-#find_package (GMock REQUIRED)
 
 include_directories (${GTEST_INCLUDE_DIRS})
 include_directories (${GMOCK_INCLUDE_DIRS})
 include_directories (${CMAKE_CURRENT_SOURCE_DIR}/include/)
-
 
 set (SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set (INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/http)
@@ -35,7 +33,7 @@ install (DIRECTORY ${INCLUDE_DIR}
 enable_testing()
 
 add_executable ("${PROJECT_NAME}_test" ${TESTS})
-target_link_libraries ("${PROJECT_NAME}_test" ${PROJECT_NAME} ${GTEST_BOTH_LIBRARIES})
+target_link_libraries ("${PROJECT_NAME}_test" ${PROJECT_NAME} ${GTEST_BOTH_LIBRARIES} gcov)
 
 add_test ("${PROJECT_NAME}_test" "${PROJECT_NAME}_test")
 
@@ -43,4 +41,15 @@ file(GLOB TEST_DATA "${UNIT_TESTS}/test_data/*")
 foreach(FILE ${TEST_DATA})
     file(COPY ${FILE} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/test_data)
 endforeach(FILE)
+
+add_custom_command(TARGET HttpServer_test
+                   POST_BUILD
+                   COMMAND /bin/bash ${CMAKE_CURRENT_SOURCE_DIR}/scripts/kcov)
+add_custom_command(TARGET HttpServer_test
+                   POST_BUILD
+                   COMMAND /bin/bash ${CMAKE_CURRENT_SOURCE_DIR}/scripts/gcovr)
+
+add_custom_command(TARGET HttpServer_test
+                   POST_BUILD
+                   COMMAND /bin/bash ${CMAKE_CURRENT_SOURCE_DIR}/scripts/lcov)
 
